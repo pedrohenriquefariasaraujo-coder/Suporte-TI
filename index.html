@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte TI - Grupo Mateus</title>
+    <!-- Fontes Futuristas via Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #060911;
+            --card-bg: rgba(13, 22, 38, 0.7);
+            --primary-neon: #00f0ff;
+            --secondary-neon: #ff0055;
+            --mateus-red: #e30613;
+            --text-color: #e2e8f0;
+            --glow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Grade de fundo estilo HUD */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+        }
+
+        /* Vignette escuro ao redor */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, transparent 30%, rgba(6, 9, 17, 0.95) 90%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 950px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 3rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--primary-neon);
+            color: var(--primary-neon);
+            padding: 6px 18px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            border-radius: 20px;
+            margin-bottom: 1.2rem;
+            box-shadow: var(--glow);
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ff88;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-neon) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Card / Botão Futurista */
+        .card-btn {
+            position: relative;
+            background: var(--card-bg);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.2rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        /* Efeito de feixe de luz passando */
+        .card-btn::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent);
+            transition: 0.6s;
+        }
+
+        .card-btn:hover::before {
+            left: 100%;
+        }
+
+        .card-btn:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: var(--primary-neon);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.25), inset 0 0 15px rgba(0, 240, 255, 0.1);
+        }
+
+        .icon {
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 240, 255, 0.08);
+            border-radius: 50%;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: var(--primary-neon);
+            transition: all 0.3s ease;
+        }
+
+        .card-btn:hover .icon {
+            background: var(--primary-neon);
+            color: #060911;
+            box-shadow: var(--glow);
+        }
+
+        .btn-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .btn-arrow {
+            font-size: 0.85rem;
+            color: var(--primary-neon);
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-btn:hover .btn-arrow {
+            opacity: 1;
+            gap: 10px;
+        }
+
+        footer {
+            margin-top: 3.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+        footer span {
+            color: var(--primary-neon);
+        }
+
+        /* Ajuste para telas menores */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.6rem; }
+            p.subtitle { font-size: 0.95rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="badge"><span class="status-dot"></span>Sistema Operacional TI</div>
+            <h1>SUPORTE TI - GRUPO MATEUS</h1>
+            <p class="subtitle">Central de Ferramentas & Utilitários</p>
+        </header>
+
+        <main class="grid">
+            <!-- Botão 1 -->
+            <a href="https://pedrohenriquefariasaraujo-coder.github.io/Gerador-de-senha/" target="_blank" rel="noopener noreferrer" class="card-btn">
+                <div class="icon">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 0121 9z"></path></svg>
+                </div>
+                <div class="btn-title">Gerador de Senha PDV MATEUS</div>
+                <div class="btn-arrow">Acessar &rarr;</div>
+            </a>
+
+            <!-- Botão 2 -->
+            <a href="https://pedrohenriquefariasaraujo-coder.github.io/senha-diaria/" target="_blank" rel="noopener noreferrer" class="card-btn">
+                <div class="icon">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <div class="btn-title">Senha Balança Prix</div>
+                <div class="btn-arrow">Acessar &rarr;</div>
+            </a>
+
+            <!-- Botão 3 -->
+            <a href="https://pedrohenriquefariasaraujo-coder.github.io/ErrosSITEF/" target="_blank" rel="noopener noreferrer" class="card-btn">
+                <div class="icon">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <div class="btn-title">Erros Cartões SITEF</div>
+                <div class="btn-arrow">Consultar &rarr;</div>
+            </a>
+
+            <!-- Botão 4 -->
+            <a href="https://pedrohenriquefariasaraujo-coder.github.io/Armazem/" target="_blank" rel="noopener noreferrer" class="card-btn">
+                <div class="icon">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <div class="btn-title">Chamados para Lojas Armazéns</div>
+                <div class="btn-arrow">Abrir &rarr;</div>
+            </a>
+        </main>
+
+        <footer>
+            <p>&copy; <span>Grupo Mateus</span> — Departamento de Tecnologia da Informação</p>
+        </footer>
+    </div>
+
+</body>
+</html>
